@@ -4,7 +4,11 @@ import {
   getAllParticipants,
   createNewSchedule,
   getHealthData,
-  createHealthData
+  createHealthData,
+  getAllSchedules,
+  updateSchedule,
+  getDemographicData,
+  createDemographicData,
 } from "./controllers/participantController.js";
 
 const app = express();
@@ -17,9 +21,14 @@ app.get("/api/v1/logout", logout);
 
 app.get("/api/v1/participants", getAllParticipants);
 
-app.post("/api/v1/schedules/:type", createNewSchedule);
-
 app.get("/api/v1/healthData/:id", getHealthData);
 app.post("/api/v1/healthData/:userId", createHealthData);
+
+app.get("/api/v1/schedules", getAllSchedules);
+app.patch("/api/v1/schedules/:id", updateSchedule);
+app.post("/api/v1/schedules/:type", createNewSchedule);
+
+app.post("/api/v1/:id/demographicData", createDemographicData);
+app.get("/api/v1/demographicData/:id", getDemographicData);
 
 export default app;

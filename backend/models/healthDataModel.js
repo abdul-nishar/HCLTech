@@ -38,6 +38,10 @@ const healthDataSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please provide urine output of the participant"],
   },
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Participant",
+  },
 });
 
 const healthData = mongoose.model("HealthData", healthDataSchema);

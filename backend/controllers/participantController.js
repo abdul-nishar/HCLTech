@@ -90,7 +90,7 @@ const getHealthData = async (req, res) => {
         .json({ status: "fail", message: "Document Not Found" });
 
     res.status(200).json({
-      status: "fail",
+      status: "success",
       data: {
         healthData,
       },
@@ -103,10 +103,13 @@ const getHealthData = async (req, res) => {
 
 const createHealthData = async (req, res) => {
   try {
-    const newHealthData = await HealthData.create(req.body);
+    const newHealthData = await HealthData.create({
+      userId: req.params.userId,
+      ...req.body,
+    });
 
     res.status(200).json({
-      status: "fail",
+      status: "success",
       data: {
         newHealthData,
       },
@@ -122,7 +125,23 @@ const getDemographicData = async (req, res) => {
     const demographicData = await DemographicData.findById(req.params.id);
 
     res.status(200).json({
-      status: "fail",
+      status: "success",
+      data: {
+        demographicData,
+      },
+    });
+  } catch (err) {
+    console.log("Error in get demographic data controller : ", err.message);
+    res.status(500).json({ status: "fail", message: "Internal Server Error" });
+  }
+};
+
+const createDemographicData = async (req, res) => {
+  try {
+    const demographicData = await DemographicData.create(req.body);
+
+    res.status(200).json({
+      status: "success",
       data: {
         demographicData,
       },
@@ -141,4 +160,5 @@ export {
   getAllSchedules,
   updateSchedule,
   getDemographicData,
+  createDemographicData,
 };

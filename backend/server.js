@@ -1,13 +1,18 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 import { fileURLToPath } from "url";
 import path from "path";
-import app from "./app.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: `${__dirname}/config.env` });
+
+import app from "./app.js";
+
+app.use(cors());
+app.options("*", cors());
 
 const db = process.env.MONGODB_URI.replace(
   "<PASSWORD>",
